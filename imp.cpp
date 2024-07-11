@@ -149,10 +149,7 @@ PrintStatement::~PrintStatement() { delete e; }
 IfStatement::~IfStatement() { delete fbody; delete tbody; delete cond; }
 WhileStatement::~WhileStatement() { delete body; delete cond; }
 ReturnStatement::~ReturnStatement() { delete e; }
-<<<<<<< HEAD
-=======
 FCallStatement::~FCallStatement(){ delete e; }
->>>>>>> master
 
 StatementList::~StatementList() { }
 VarDec::~VarDec() { }
@@ -182,13 +179,10 @@ void ReturnStatement::accept(ImpVisitor* v) {
   return v->visit(this);
 }
 
-<<<<<<< HEAD
-=======
 void FCallStatement::accept(ImpVisitor* v) {
   return v->visit(this);
 }
 
->>>>>>> master
 void StatementList::add(Stm* s) { slist.push_back(s);  }
 
 void StatementList::accept(ImpVisitor* v) {
@@ -245,12 +239,9 @@ void ReturnStatement::accept(ImpValueVisitor* v) {
   return v->visit(this);
 }
 
-<<<<<<< HEAD
-=======
 void FCallStatement::accept(ImpValueVisitor* v) {
   return v->visit(this);
 }
->>>>>>> master
 
 void StatementList::accept(ImpValueVisitor* v) {
   return v->visit(this);
@@ -302,12 +293,9 @@ void ReturnStatement::accept(TypeVisitor* v) {
   return v->visit(this);
 }
 
-<<<<<<< HEAD
-=======
 void FCallStatement::accept(TypeVisitor* v) {
   return v->visit(this);
 }
->>>>>>> master
 
 void StatementList::accept(TypeVisitor* v) {
   return v->visit(this);
