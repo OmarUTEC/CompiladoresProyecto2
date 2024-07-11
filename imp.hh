@@ -167,7 +167,6 @@ public:
 
 class FCallStatement : public Stm {
 public:
-  string fname;
   Exp* e;
   FCallStatement(Exp* e);
   void accept(ImpVisitor* v);
