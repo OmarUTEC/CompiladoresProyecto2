@@ -213,6 +213,10 @@ void ImpCodeGen::visit(ReturnStatement* s) {
   return;
 }
 
+void ImpCodeGen::visit(FCallStatement* s) {
+  s->e->accept(this);
+  return;
+}
 
 int ImpCodeGen::visit(BinaryExp* e) {
   e->left->accept(this);

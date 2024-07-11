@@ -5,32 +5,22 @@ mark
 pusha Lmain
 call
 halt
-Lsuma: skip
-enter 4
-alloc 2
-push  0
-storer 1
-push  15
-print
+Limprimir: skip
+enter 2
+alloc 0
 L0: skip
 push  0
 loadr -3
 lt
 jmpz L1
-loadr 1
 loadr -3
-add
-storer 1
+print
 loadr -3
 push  1
 sub
 storer -3
 goto L0
 L1: skip
-push  16
-print
-loadr 1
-storer -4
 return 4
 Lmain: skip
 enter 3
@@ -39,13 +29,11 @@ push  10
 store 1
 push  11
 store 2
-push  14
-print
-alloc 1
-push  4
+push  5
 mark
-pusha Lsuma
+pusha Limprimir
 call
+push  12
 storer 1
 loadr 1
 print

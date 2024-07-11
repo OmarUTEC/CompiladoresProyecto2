@@ -138,6 +138,11 @@ void ImpInterpreter::visit(ReturnStatement* s) {
   return;
 }
 
+void ImpInterpreter::visit(FCallStatement* e) {
+  e->e->accept(this);
+  return;
+}
+
 // Expressions
 
 ImpValue ImpInterpreter::visit(BinaryExp* e) {

@@ -165,6 +165,15 @@ public:
   ~ReturnStatement();
 };
 
+class FCallStatement : public Stm {
+public:
+  Exp* e;
+  FCallStatement(Exp* e);
+  void accept(ImpVisitor* v);
+  void accept(ImpValueVisitor* v);
+  void accept(TypeVisitor* v);
+  ~FCallStatement();
+};
 
 class StatementList {
 public:

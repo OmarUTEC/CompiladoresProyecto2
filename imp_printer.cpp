@@ -114,6 +114,11 @@ void ImpPrinter::visit(ReturnStatement* s) {
   return;
 }
 
+void ImpPrinter::visit(FCallStatement* e) {
+  e->e->accept(this);
+  return;
+}
+
 // Expresiones
 
 int ImpPrinter::visit(BinaryExp* e) {

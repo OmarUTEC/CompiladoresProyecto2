@@ -30,6 +30,7 @@ public:
   void visit(IfStatement*);
   void visit(WhileStatement*);
   void visit(ReturnStatement* e); // new
+  void visit(FCallStatement*);
   
   ImpValue visit(BinaryExp* e);
   ImpValue visit(NumberExp* e);

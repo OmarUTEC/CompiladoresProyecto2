@@ -223,6 +223,10 @@ void ImpTypeChecker::visit(ReturnStatement* s) {
   return;
 }
 
+void ImpTypeChecker::visit(FCallStatement* e) {
+  e->e->accept(this);
+  return;
+}
 
 ImpType ImpTypeChecker::visit(BinaryExp* e) {
   ImpType t1 = e->left->accept(this);

@@ -1,0 +1,20 @@
+var int a, b;
+
+fun void imprimir(int n)
+  while 0 < n do
+    print(n);
+    n = n - 1
+  endwhile;
+  return ()
+endfun
+
+
+fun void main()
+  var int x;
+  a = 10;
+  b = 11;
+  imprimir(5);
+  x = 12;
+  print(x);
+  return ()
+endfun

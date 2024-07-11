@@ -23,7 +23,6 @@ int main(int argc, const char* argv[]) {
   std::stringstream buffer;
   buffer << t.rdbuf();
   Scanner scanner(buffer.str());
-  
   //Scanner scanner(argv[1]);
   Parser parser(&scanner);
   program = parser.parse();  // el parser construye la aexp
