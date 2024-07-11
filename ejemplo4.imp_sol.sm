@@ -47,3 +47,4 @@ push  4
 storer 2
 loadr 2
 print
+// esta solución no llama funciones
