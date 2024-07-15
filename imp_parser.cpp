@@ -3,10 +3,10 @@
 #include "imp_parser.hh"
 
 
-const char* Token::token_names[32] = {
+const char* Token::token_names[35] = {
   "LPAREN" , "RPAREN", "PLUS", "MINUS", "MULT","DIV","EXP","LT","LTEQ","EQ",
   "NUM", "ID", "PRINT", "SEMICOLON", "COMMA", "ASSIGN", "CONDEXP", "IF", "THEN", "ELSE", "ENDIF", "WHILE", "DO",
-  "ENDWHILE", "ERR", "END", "VAR", "RETURN", "FUN", "ENDFUN", "TRUE", "FALSE" };
+  "ENDWHILE", "ERR", "END", "VAR", "RETURN", "FUN", "ENDFUN", "TRUE", "FALSE", "FOR", "IN", "ENDFOR" };
 
 Token::Token(Type type):type(type) { lexema = ""; }
 
@@ -35,14 +35,17 @@ Scanner::Scanner(string s):input(s),first(0),current(0) {
   reserved["else"] = Token::ELSE;
   reserved["endif"] = Token::ENDIF;
   reserved["while"] = Token::WHILE;
+  reserved["for"] = Token::FOR;
   reserved["do"] = Token::DO;
   reserved["endwhile"] = Token::ENDWHILE;
+  reserved["endfor"] = Token::ENDFOR;
   reserved["var"] = Token::VAR;
   reserved["return"] = Token::RETURN;
   reserved["fun"] = Token::FUN;
   reserved["endfun"] = Token::ENDFUN;
   reserved["true"] = Token::TRUE;
   reserved["false"] = Token::FALSE;
+  reserved["in"] = Token::IN;
 }
 
 Token* Scanner::nextToken() {
@@ -297,6 +300,7 @@ StatementList* Parser::parseStatementList() {
 Stm* Parser::parseStatement() {
   Stm* s = NULL;
   Exp* e = NULL;
+  Exp* e2 = NULL;
   Body *tb, *fb;
   if (match(Token::ID)) {
     string lex = previous->lexema;
@@ -356,6 +360,23 @@ Stm* Parser::parseStatement() {
     if (!match(Token::RPAREN)) parserError("Esperaba 'rparen'");
     s = new ReturnStatement(e);
     
+  } else if (match(Token::FOR)) {
+    if (match(Token::ID)){
+      string lex = previous->lexema;
+      if (!match(Token::IN)) parserError("Esperaba 'in'");
+      if (!match(Token::LPAREN)) parserError("Esperaba 'lparen'");
+      e = parseCExp();
+      if (!match(Token::COMMA)) parserError("Esperaba 'coma'");
+      e2 = parseCExp();
+      if (!match(Token::RPAREN)) parserError("Esperaba 'rparen'");
+      if (!match(Token::DO)) parserError("Esperaba 'do'");
+      tb = parseBody();
+      if (!match(Token::ENDFOR)) parserError("Esperaba 'endfor'");
+      s = new ForDoStm(lex,e,e2,tb);
+    }
+    else{
+      parserError("Esperaba 'id'");
+    }  
   } else {
     cout << "No se encontro Statement" << endl;
     exit(0);

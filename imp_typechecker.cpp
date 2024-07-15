@@ -207,6 +207,30 @@ void ImpTypeChecker::visit(WhileStatement* s) {
  return;
 }
 
+void ImpTypeChecker::visit(ForDoStm* s) {
+  int temp = dir;
+  env.add_level();
+  ImpType type;  
+  type.set_basic_type(ImpType::INT);
+  env.add_var(s->id, type);
+  dir += 1;
+  if (dir > max_dir) max_dir = dir;
+  if (!s->e1->accept(this).match(inttype)) {
+    cout << "Expresion 1 debe ser int" << endl;
+    exit(0);
+  }
+  if (!s->e2->accept(this).match(inttype)) {
+    cout << "Expresion 2 debe ser int" << endl;
+    exit(0);
+  }
+  // que hacer con sp?
+  sp_decr(1);
+  s->body->accept(this);
+  env.remove_level();
+  dir = temp;
+ return;
+}
+
 void ImpTypeChecker::visit(ReturnStatement* s) {
  ImpType rtype = env.lookup("return");
   ImpType etype;

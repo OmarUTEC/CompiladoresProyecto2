@@ -1,0 +1,13 @@
+var int a, b;
+
+fun void main()
+  var int y;
+  a = 3;
+  b = 4;
+  y = a + b;
+  print(y);
+  for z in (5,8) do
+    print(z)
+  endfor;
+  return ()
+endfun

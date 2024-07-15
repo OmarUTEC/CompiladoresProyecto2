@@ -131,6 +131,33 @@ void ImpInterpreter::visit(WhileStatement* s) {
  return;
 }
 
+void ImpInterpreter::visit(ForDoStm* s) {
+  ImpValue v1 = s->e1->accept(this);
+  ImpValue v2 = s->e2->accept(this);
+  if (v1.type != TINT || v2.type != TINT) {
+    cout << "Type error en ForDo: esperaba int en expresiones" << endl;
+    exit(0);
+  }	
+  if(v1.int_value > v2.int_value){
+    cout << "Type error en ForDo: expresión 1 es mayor a expresión 2" << endl;
+    exit(0);
+  }
+  env.add_level();
+  ImpValue t;
+  t.set_default_value(ImpVType::TINT);
+  env.add_var(s->id, t);
+  env.update(s->id,v1);
+  auto var = env.lookup(s->id);
+  while(var.int_value <= v2.int_value){
+    s->body->accept(this);
+    var.int_value += 1;
+    env.update(s->id,var);
+    var = env.lookup(s->id);
+  }
+  env.remove_level();
+ return;
+}
+
 void ImpInterpreter::visit(ReturnStatement* s) {
   if (s->e != NULL)
     retval = s->e->accept(this);

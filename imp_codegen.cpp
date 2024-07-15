@@ -203,6 +203,35 @@ void ImpCodeGen::visit(WhileStatement* s) {
   return;
 }
 
+void ImpCodeGen::visit(ForDoStm* s) {
+  int temp = current_dir;
+  direcciones.add_level();
+  string l1 = next_label();
+  string l2 = next_label();
+  VarEntry ventry;
+  ventry.dir = current_dir+1;
+  ventry.is_global = false;
+  direcciones.add_var(s->id, ventry);
+  ventry = direcciones.lookup(s->id);
+  s->e1->accept(this);
+  codegen(nolabel,"storer", ventry.dir);
+
+  codegen(l1,"skip");
+  codegen(nolabel,"load",ventry.dir);
+  s->e2->accept(this);
+  codegen(nolabel, "le");
+  codegen(nolabel,"jmpz",l2);
+  s->body->accept(this);
+  codegen(nolabel,"load",ventry.dir);
+  codegen(nolabel,"push",1);
+  codegen(nolabel,"add");
+  codegen(nolabel,"goto",l1);
+  codegen(l2,"skip");
+  direcciones.remove_level();
+  current_dir = temp;
+  return;
+}
+
 void ImpCodeGen::visit(ReturnStatement* s) {
   // agregar codigo
   if(s->e != nullptr){

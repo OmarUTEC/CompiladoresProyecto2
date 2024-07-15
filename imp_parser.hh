@@ -17,8 +17,8 @@ using namespace std;
 
 class Token {
 public:
-  enum Type { LPAREN=0, RPAREN, PLUS, MINUS, MULT, DIV, EXP, LT, LTEQ, EQ,  NUM, ID, PRINT, SEMICOLON, COMMA, ASSIGN, CONDEXP, IF, THEN, ELSE, ENDIF, WHILE, DO, ENDWHILE, ERR, END, VAR, RETURN, FUN, ENDFUN, TRUE, FALSE };
-  static const char* token_names[32]; 
+  enum Type { LPAREN=0, RPAREN, PLUS, MINUS, MULT, DIV, EXP, LT, LTEQ, EQ,  NUM, ID, PRINT, SEMICOLON, COMMA, ASSIGN, CONDEXP, IF, THEN, ELSE, ENDIF, WHILE, DO, ENDWHILE, ERR, END, VAR, RETURN, FUN, ENDFUN, TRUE, FALSE, FOR, IN, ENDFOR };
+  static const char* token_names[35]; 
   Type type;
   string lexema;
   Token(Type);

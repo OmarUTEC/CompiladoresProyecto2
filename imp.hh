@@ -155,6 +155,19 @@ public:
   ~WhileStatement();
 };
 
+class ForDoStm : public Stm {
+public:
+  string id;
+  Exp* e1;
+  Exp* e2;
+  Body* body;
+  ForDoStm(string id,Exp* e1,Exp* e2,Body* bd);
+  void accept(ImpVisitor* v);
+  void accept(ImpValueVisitor* v);
+  void accept(TypeVisitor* v);
+  ~ForDoStm();
+};
+
 class ReturnStatement : public Stm {
 public:
   Exp* e;
